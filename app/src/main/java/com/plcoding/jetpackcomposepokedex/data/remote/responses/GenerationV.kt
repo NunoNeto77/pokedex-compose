@@ -1,5 +1,5 @@
 package com.plcoding.jetpackcomposepokedex.data.remote.responses
 
 data class GenerationV(
-    val black-white: com.plcoding.jetpackcomposepokedex.data.remote.responses.BlackWhite
+    val blackWhite: BlackWhite
 )
