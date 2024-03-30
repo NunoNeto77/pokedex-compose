@@ -56,6 +56,7 @@ import com.plcoding.jetpackcomposepokedex.ui.theme.RobotoCondensed
 @Composable
 fun PokemonListScreen(
     navController: NavController,
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     Surface(
         color = MaterialTheme.colors.background,
@@ -76,10 +77,10 @@ fun PokemonListScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-
+                viewModel.searchPokemonList(it)
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Pokedexlist(navController = navController)
+            PokedexList(navController = navController)
         }
     }
 }
@@ -129,7 +130,7 @@ fun SearchBar(
 }
 
 @Composable
-fun Pokedexlist(
+fun PokedexList(
     navController: NavController,
     viewModel: PokemonListViewModel = hiltViewModel()
 ) {
@@ -137,6 +138,7 @@ fun Pokedexlist(
     val endReached by remember { viewModel.endReached }
     val loadError by remember { viewModel.loadError }
     val isLoading by remember { viewModel.isLoading }
+    val isSearching by remember { viewModel.isSearching }
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         val itemCount = if (pokemonList.size % 2 == 0) {
@@ -145,7 +147,7 @@ fun Pokedexlist(
             pokemonList.size / 2 + 1
         }
         items(itemCount) {
-            if (it >= itemCount - 1 && !endReached) {
+            if (it >= itemCount - 1 && !endReached && !isLoading && !isSearching) {
                 viewModel.loadPokemonPaginated()
             }
             PokedexRow(rowIndex = it, entries = pokemonList, navController = navController)
@@ -180,7 +182,7 @@ fun PokedexEntry(
     }
 
     Box(
-        contentAlignment = Alignment.Center,
+        contentAlignment = Center,
         modifier = modifier
             .shadow(5.dp, RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(10.dp))
