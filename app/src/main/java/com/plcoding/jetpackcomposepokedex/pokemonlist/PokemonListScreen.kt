@@ -29,7 +29,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -69,7 +68,7 @@ fun PokemonListScreen(
                 contentDescription = "Pokemon",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
+                    .align(CenterHorizontally)
             )
             SearchBar(
                 hint = "Search...",
@@ -210,16 +209,11 @@ fun PokedexEntry(
                     }
                 },
                 contentDescription = entry.pokemonName,
-                placeholder = painterResource(id = R.drawable.ic_100tb) ,
+                placeholder = painterResource(id = R.drawable.ic_international_pok_mon_logo) ,
                 modifier = Modifier
                     .size(120.dp)
-                    .align(Alignment.CenterHorizontally)
-            ) /*{
-                CircularProgressIndicator(
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier.scale(0.5f)
-                )
-            } */
+                    .align(CenterHorizontally)
+            )
             Text(
                 text = entry.pokemonName,
                 fontFamily = RobotoCondensed,
